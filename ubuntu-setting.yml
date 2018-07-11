@@ -1,0 +1,39 @@
+# ansible-configure
+- hosts: localhost
+  connection: localhost
+  user: yoshiki-desktop
+  become: yes
+  tasks:
+  - name: Add apt repository vivaldi
+    apt_repository: 
+      repo: deb http://repo.vivaldi.com/snapshot/deb/ stable main
+      state: present
+  - name: vscode
+    apt_repository:
+      repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode/ stable main
+      state: present
+  - name: krita
+    apt_repository:
+      repo: ppa:kritalime/ppa
+      state: present
+  - name: kubuntu-backport
+    apt_repository:
+      repo: ppa:kubuntu-ppa/backports
+      state: present
+
+  - name: Install vivaldi
+    apt:
+      update_cache: yes
+      name: vivaldi-snapshot
+  
+  - name: Install krita
+    apt:
+      name: krita
+
+  - name: Install vscode
+    apt:
+      name: code
+  
+  - name: Install latte-dock
+    apt:
+      name: latte-dock
